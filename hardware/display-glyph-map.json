@@ -1,0 +1,57 @@
+{
+  "encoding": "active_low_seven_segment",
+  "physical_common_polarity_proven": false,
+  "bit_masks": {
+    "a_top": "0x01",
+    "b_upper_right": "0x02",
+    "c_lower_right": "0x04",
+    "d_bottom": "0x08",
+    "e_lower_left": "0x10",
+    "f_upper_left": "0x20",
+    "g_center": "0x40",
+    "decimal_point": "0x80"
+  },
+  "decimal_point_operation": "byte & 0x7F",
+  "observed": {
+    "blank": "0xFF",
+    "dash": "0xBF",
+    "0": "0xC0",
+    "9": "0x90",
+    "3_with_decimal_point": "0x30",
+    "8": "0x80",
+    "1": "0xF9",
+    "2_with_decimal_point": "0x24",
+    "3": "0xB0",
+    "4": "0x99",
+    "0_with_decimal_point": "0x40",
+    "C": "0xC6",
+    "C_with_decimal_point": "0x46"
+  },
+  "strongly_inferred": {
+    "0": "0xC0",
+    "2": "0xA4",
+    "5": "0x92",
+    "6": "0x82",
+    "7": "0xF8",
+    "9": "0x90",
+    "A": "0x88",
+    "b": "0x83",
+    "d": "0xA1",
+    "E": "0x86",
+    "F": "0x8E",
+    "dash": "0xBF",
+    "blank": "0xFF"
+  },
+  "evidence": [
+    "data/captures/sr800-capture-four-dash-baseline-analysis.md",
+    "data/captures/sr800-capture-993.0-analysis.md",
+    "data/captures/sr800-capture-fan8-blinking-analysis.md",
+    "data/captures/sr800-capture-power9-blink-analysis.md",
+    "data/captures/sr800-capture-timer3.0-blink-analysis.md",
+    "data/captures/sr800-capture-112.9-blinking-timer-analysis.md",
+    "data/captures/sr800-capture-1-1-0.4-running-analysis.md",
+    "data/captures/sr800-capture-11C.3-cooling-analysis.md",
+    "data/captures/sr800-capture-post-cooling-dashes-analysis.md"
+  ],
+  "decoder_rule": "Observed glyphs may be decoded directly after phase-aligned consensus. Strongly inferred glyphs remain provisional until reproduced in a known physical display state."
+}

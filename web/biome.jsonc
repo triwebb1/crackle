@@ -1,0 +1,66 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    // The stylesheet is one deliberate cascade (later, more specific rules refine earlier ones), so
+    // the CSS rules that assume a component-scoped architecture do not apply to it.
+    "includes": ["src/**", "dev/**", "scripts/**", "tools/**", "*.ts", "*.json", "!**/*.css", "!**/dist"]
+  },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        // `value!` marks a value an earlier check has proven present; TypeScript's narrowing cannot
+        // follow that proof across helpers, and the strict compiler still checks everything else.
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        // `() => void | Promise<unknown>` is how a callback accepts both sync and async handlers;
+        // the suggested `undefined` would reject every handler that simply returns nothing.
+        "noConfusingVoidType": "off"
+      },
+      "a11y": {
+        // It flags `aria-hidden` on SVG <g> and <text> chart decorations, which are never focusable.
+        "noAriaHiddenOnFocusable": "off",
+        // Labels here wrap their control through a field component or a control variable, which the
+        // rule cannot see; the render tests assert the accessible names instead.
+        "noLabelWithoutControl": "off",
+        // role="group"/"region" stay on divs whose native counterparts (fieldset, section) would
+        // change the layout; the accessible role is what assistive technology reads.
+        "useSemanticElements": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Source-text and template assertions legitimately contain `${...}` inside plain strings.
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
+      "linter": { "rules": { "suspicious": { "noTemplateCurlyInString": "off" } } }
+    },
+    {
+      // The profile charts are pointer-drag editors; the zone and step tables beside them are the
+      // keyboard path to every value, and the journey chart adds focusable limit handles.
+      "includes": ["src/components/ProfileEditor.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noStaticElementInteractions": "off",
+            "noNoninteractiveElementInteractions": "off",
+            "noSvgWithoutTitle": "off"
+          }
+        }
+      }
+    }
+  ]
+}

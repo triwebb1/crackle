@@ -1,0 +1,267 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Crackle wiring diagram</title>
+<desc id="d">SR800 factory UI board (PIC16F690 U3B pins 11, 12, 17, 20 and the fan and heater command transistors), two PC817C optocouplers and two 20 kOhm / 33 kOhm dividers, a Waveshare ESP32-S3-Zero, and a MAX31856 thermocouple converter with a K-type probe.</desc>
+<rect x="0" y="0" width="1200" height="860" fill="#ffffff"/>
+<text x="20" y="36" font-size="18" text-anchor="start" fill="#1d2421" font-weight="700">Crackle wiring: Fresh Roast SR800 + ESP32-S3-Zero</text>
+<rect x="16" y="56" width="344" height="676" rx="12" fill="#f5f7f6" stroke="#d3dad6" stroke-width="1.5"/>
+<text x="30" y="80" font-size="14" text-anchor="start" fill="#1d2421" font-weight="700">SR800 (factory, unchanged)</text>
+<rect x="372" y="56" width="380" height="676" rx="12" fill="#f5f7f6" stroke="#d3dad6" stroke-width="1.5"/>
+<text x="386" y="80" font-size="14" text-anchor="start" fill="#1d2421" font-weight="700">Interface (added)</text>
+<rect x="764" y="56" width="202" height="676" rx="12" fill="#f5f7f6" stroke="#d3dad6" stroke-width="1.5"/>
+<text x="778" y="80" font-size="14" text-anchor="start" fill="#1d2421" font-weight="700">Controller</text>
+<rect x="978" y="56" width="206" height="676" rx="12" fill="#f5f7f6" stroke="#d3dad6" stroke-width="1.5"/>
+<text x="992" y="80" font-size="14" text-anchor="start" fill="#1d2421" font-weight="700">Temperature</text>
+<text x="30" y="98" font-size="12" text-anchor="start" fill="#5b6560">Factory UI board</text>
+<rect x="30" y="118" width="110" height="522" rx="6" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<text x="85" y="140" font-size="13" text-anchor="middle" fill="#1d2421" font-weight="700">U3B</text>
+<text x="85" y="156" font-size="12" text-anchor="middle" fill="#1d2421">PIC16F690</text>
+<text x="85" y="455" font-size="12" text-anchor="middle" fill="#5b6560" font-style="italic">other pins</text>
+<text x="85" y="469" font-size="12" text-anchor="middle" fill="#5b6560" font-style="italic">not shown</text>
+<text x="133" y="189" font-size="12" text-anchor="end" fill="#1d2421">heater trigger</text>
+<text x="146" y="179" font-size="12" text-anchor="start" fill="#5b6560">11</text>
+<text x="133" y="359" font-size="12" text-anchor="end" fill="#1d2421">fan trigger</text>
+<text x="146" y="349" font-size="12" text-anchor="start" fill="#5b6560">12</text>
+<text x="133" y="554" font-size="12" text-anchor="end" fill="#1d2421">zero cross</text>
+<text x="146" y="544" font-size="12" text-anchor="start" fill="#5b6560">17</text>
+<text x="133" y="624" font-size="12" text-anchor="end" fill="#1d2421">logic GND</text>
+<text x="146" y="614" font-size="12" text-anchor="start" fill="#5b6560">20</text>
+<polyline points="140,185 160,185" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="160,185 256,185" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<text x="238" y="207" font-size="12" text-anchor="end" fill="#1d2421">heater</text>
+<text x="238" y="222" font-size="12" text-anchor="end" fill="#1d2421">transistor</text>
+<circle cx="262" cy="185" r="17" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<line x1="256" y1="175" x2="256" y2="195" stroke="#1d2421" stroke-width="2.5"/>
+<polyline points="256,180 270,172 270,168" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<polyline points="256,190 270,198 270,202" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M269,197.4 l-7.5,-0.6 l3.6,-5.6 z" fill="#1d2421"/>
+<polyline points="270,168 270,155" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<polyline points="270,202 270,215" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<polyline points="270,155 270,134" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<rect x="195.0" y="114" width="150" height="20" rx="10" fill="#ffffff" stroke="#e07b45" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="270" y="129" font-size="12" text-anchor="middle" fill="#1d2421">power board: heater cmd</text>
+<polyline points="270,215 270,228" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<path d="M260,228 H280 M264,232 H276 M267.5,236 H272.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="284" y="236" font-size="12" text-anchor="start" fill="#5b6560">logic GND</text>
+<polyline points="140,355 160,355" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="160,355 256,355" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<text x="238" y="377" font-size="12" text-anchor="end" fill="#1d2421">fan</text>
+<text x="238" y="392" font-size="12" text-anchor="end" fill="#1d2421">transistor</text>
+<circle cx="262" cy="355" r="17" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<line x1="256" y1="345" x2="256" y2="365" stroke="#1d2421" stroke-width="2.5"/>
+<polyline points="256,350 270,342 270,338" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<polyline points="256,360 270,368 270,372" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M269,367.4 l-7.5,-0.6 l3.6,-5.6 z" fill="#1d2421"/>
+<polyline points="270,338 270,325" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<polyline points="270,372 270,385" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<polyline points="270,325 270,304" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<rect x="195.0" y="284" width="150" height="20" rx="10" fill="#ffffff" stroke="#2bb3c7" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="270" y="299" font-size="12" text-anchor="middle" fill="#1d2421">power board: fan cmd</text>
+<polyline points="270,385 270,398" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<path d="M260,398 H280 M264,402 H276 M267.5,406 H272.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="284" y="406" font-size="12" text-anchor="start" fill="#5b6560">logic GND</text>
+<polyline points="270,155 450,155" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="155" r="3.5" fill="#e07b45"/>
+<text x="280" y="149" font-size="12" text-anchor="start" fill="#5b6560">≈ +12 V idle</text>
+<polyline points="270,215 450,215" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="215" r="3.5" fill="#1d2421"/>
+<text x="304" y="209" font-size="12" text-anchor="start" fill="#5b6560">emitter (logic GND)</text>
+<rect x="450" y="130" width="100" height="110" rx="6" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<text x="500" y="122" font-size="12" text-anchor="middle" fill="#1d2421" font-weight="600">PC817C #2 · heater</text>
+<polyline points="550,155 528,155 528,175.0" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M520,175.0 H536 L528,189.0 Z" fill="#1d2421"/>
+<line x1="520" y1="189.0" x2="536" y2="189.0" stroke="#1d2421" stroke-width="2"/>
+<polyline points="528,189.0 528,215 550,215" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<line x1="514" y1="178.0" x2="494" y2="178.0" stroke="#1d2421" stroke-width="1.2"/>
+<path d="M492,178.0 l6,-3 v6 z" fill="#1d2421"/>
+<line x1="514" y1="190.0" x2="494" y2="190.0" stroke="#1d2421" stroke-width="1.2"/>
+<path d="M492,190.0 l6,-3 v6 z" fill="#1d2421"/>
+<line x1="482" y1="172.0" x2="482" y2="198.0" stroke="#1d2421" stroke-width="2.5"/>
+<polyline points="450,155 466,155 466,171.0 482,179.0" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<polyline points="482,191.0 466,199.0 466,215 450,215" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M467,198.5 l7.6,0.4 l-3.4,-6.2 z" fill="#1d2421"/>
+<text x="444" y="150" font-size="12" text-anchor="end" fill="#5b6560">4</text>
+<text x="444" y="210" font-size="12" text-anchor="end" fill="#5b6560">3</text>
+<text x="556" y="150" font-size="12" text-anchor="start" fill="#5b6560">1</text>
+<text x="556" y="210" font-size="12" text-anchor="start" fill="#5b6560">2</text>
+<polyline points="550,155 790,155" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="580" y="148" width="50" height="14" rx="1" fill="#ffffff" stroke="#e07b45" stroke-width="2"/>
+<text x="605.0" y="144" font-size="12" text-anchor="middle" fill="#1d2421">470 Ω</text>
+<circle cx="690" cy="155" r="3.5" fill="#e07b45"/>
+<text x="745" y="149" font-size="12" text-anchor="middle" fill="#e07b45" font-weight="600">heat</text>
+<polyline points="690,155 690,227" fill="none" stroke="#e07b45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="683" y="171" width="14" height="40" rx="1" fill="#ffffff" stroke="#e07b45" stroke-width="2"/>
+<text x="703" y="195.0" font-size="12" text-anchor="start" fill="#1d2421">33 kΩ</text>
+<polyline points="690,211 690,227" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M680,227 H700 M684,231 H696 M687.5,235 H692.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="690" y="249" font-size="12" text-anchor="middle" fill="#5b6560">ESP GND</text>
+<polyline points="550,215 572,215 572,227" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M562,227 H582 M566,231 H578 M569.5,235 H574.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="572" y="249" font-size="12" text-anchor="middle" fill="#5b6560">ESP GND</text>
+<polyline points="270,325 450,325" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="325" r="3.5" fill="#2bb3c7"/>
+<text x="280" y="319" font-size="12" text-anchor="start" fill="#5b6560">≈ +12 V idle</text>
+<polyline points="270,385 450,385" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="270" cy="385" r="3.5" fill="#1d2421"/>
+<text x="304" y="379" font-size="12" text-anchor="start" fill="#5b6560">emitter (logic GND)</text>
+<rect x="450" y="300" width="100" height="110" rx="6" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<text x="500" y="292" font-size="12" text-anchor="middle" fill="#1d2421" font-weight="600">PC817C #1 · fan</text>
+<polyline points="550,325 528,325 528,345.0" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M520,345.0 H536 L528,359.0 Z" fill="#1d2421"/>
+<line x1="520" y1="359.0" x2="536" y2="359.0" stroke="#1d2421" stroke-width="2"/>
+<polyline points="528,359.0 528,385 550,385" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<line x1="514" y1="348.0" x2="494" y2="348.0" stroke="#1d2421" stroke-width="1.2"/>
+<path d="M492,348.0 l6,-3 v6 z" fill="#1d2421"/>
+<line x1="514" y1="360.0" x2="494" y2="360.0" stroke="#1d2421" stroke-width="1.2"/>
+<path d="M492,360.0 l6,-3 v6 z" fill="#1d2421"/>
+<line x1="482" y1="342.0" x2="482" y2="368.0" stroke="#1d2421" stroke-width="2.5"/>
+<polyline points="450,325 466,325 466,341.0 482,349.0" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<polyline points="482,361.0 466,369.0 466,385 450,385" fill="none" stroke="#1d2421" stroke-width="1.5"/>
+<path d="M467,368.5 l7.6,0.4 l-3.4,-6.2 z" fill="#1d2421"/>
+<text x="444" y="320" font-size="12" text-anchor="end" fill="#5b6560">4</text>
+<text x="444" y="380" font-size="12" text-anchor="end" fill="#5b6560">3</text>
+<text x="556" y="320" font-size="12" text-anchor="start" fill="#5b6560">1</text>
+<text x="556" y="380" font-size="12" text-anchor="start" fill="#5b6560">2</text>
+<polyline points="550,325 790,325" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="580" y="318" width="50" height="14" rx="1" fill="#ffffff" stroke="#2bb3c7" stroke-width="2"/>
+<text x="605.0" y="314" font-size="12" text-anchor="middle" fill="#1d2421">470 Ω</text>
+<circle cx="690" cy="325" r="3.5" fill="#2bb3c7"/>
+<text x="745" y="319" font-size="12" text-anchor="middle" fill="#1b8a9b" font-weight="600">fan</text>
+<polyline points="690,325 690,397" fill="none" stroke="#2bb3c7" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="683" y="341" width="14" height="40" rx="1" fill="#ffffff" stroke="#2bb3c7" stroke-width="2"/>
+<text x="703" y="365.0" font-size="12" text-anchor="start" fill="#1d2421">33 kΩ</text>
+<polyline points="690,381 690,397" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M680,397 H700 M684,401 H696 M687.5,405 H692.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="690" y="419" font-size="12" text-anchor="middle" fill="#5b6560">ESP GND</text>
+<polyline points="550,385 572,385 572,397" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M562,397 H582 M566,401 H578 M569.5,405 H574.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="572" y="419" font-size="12" text-anchor="middle" fill="#5b6560">ESP GND</text>
+<polyline points="160,355 160,460 790,460" fill="none" stroke="#6b7570" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="160" cy="355" r="3.5" fill="#2bb3c7"/>
+<rect x="420" y="453" width="50" height="14" rx="1" fill="#ffffff" stroke="#6b7570" stroke-width="2"/>
+<text x="445.0" y="449" font-size="12" text-anchor="middle" fill="#1d2421">20 kΩ</text>
+<circle cx="640" cy="460" r="3.5" fill="#6b7570"/>
+<polyline points="640,460 640,526" fill="none" stroke="#6b7570" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="633" y="474" width="14" height="38" rx="1" fill="#ffffff" stroke="#6b7570" stroke-width="2"/>
+<text x="653" y="497.0" font-size="12" text-anchor="start" fill="#1d2421">33 kΩ</text>
+<polyline points="640,512 640,526" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M630,526 H650 M634,530 H646 M637.5,534 H642.5" stroke="#1d2421" stroke-width="2" stroke-linecap="round"/>
+<text x="654" y="534" font-size="12" text-anchor="start" fill="#5b6560">logic GND</text>
+<text x="722" y="454" font-size="12" text-anchor="middle" fill="#5b6560" font-weight="600">fan monitor</text>
+<polyline points="140,550 790,550" fill="none" stroke="#6b7570" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="420" y="543" width="50" height="14" rx="1" fill="#ffffff" stroke="#6b7570" stroke-width="2"/>
+<text x="445.0" y="539" font-size="12" text-anchor="middle" fill="#1d2421">20 kΩ</text>
+<circle cx="600" cy="550" r="3.5" fill="#6b7570"/>
+<polyline points="600,550 600,620" fill="none" stroke="#6b7570" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="593" y="566" width="14" height="36" rx="1" fill="#ffffff" stroke="#6b7570" stroke-width="2"/>
+<text x="613" y="588.0" font-size="12" text-anchor="start" fill="#1d2421">33 kΩ</text>
+<polyline points="600,602 600,620" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="600" cy="620" r="3.5" fill="#1d2421"/>
+<text x="722" y="544" font-size="12" text-anchor="middle" fill="#5b6560" font-weight="600">zero cross</text>
+<polyline points="140,620 790,620" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="480" y="638" font-size="12" text-anchor="middle" fill="#1d2421" font-weight="600">signal reference: ESP GND ↔ U3B pin 20 (factory logic GND)</text>
+<text x="865" y="104" font-size="13" text-anchor="middle" fill="#1d2421" font-weight="700">Waveshare ESP32-S3-Zero</text>
+<rect x="790" y="112" width="150" height="528" rx="8" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<text x="798" y="159" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GPIO4</text>
+<circle cx="790" cy="155" r="2.5" fill="#1d2421"/>
+<text x="798" y="329" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GPIO3</text>
+<circle cx="790" cy="325" r="2.5" fill="#1d2421"/>
+<text x="798" y="464" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GPIO5</text>
+<circle cx="790" cy="460" r="2.5" fill="#1d2421"/>
+<text x="798" y="554" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GPIO6</text>
+<circle cx="790" cy="550" r="2.5" fill="#1d2421"/>
+<text x="798" y="624" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GND</text>
+<circle cx="790" cy="620" r="2.5" fill="#1d2421"/>
+<rect x="1000" y="148" width="95" height="240" rx="6" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<polyline points="940,170 1000,170" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="174" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">3V3</text>
+<text x="1008" y="174" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">VIN</text>
+<circle cx="940" cy="170" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="170" r="2.5" fill="#1d2421"/>
+<polyline points="940,198 1000,198" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="202" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GND</text>
+<text x="1008" y="202" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">GND</text>
+<circle cx="940" cy="198" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="198" r="2.5" fill="#1d2421"/>
+<polyline points="940,226 1000,226" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="230" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO9</text>
+<text x="1008" y="230" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">CS</text>
+<circle cx="940" cy="226" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="226" r="2.5" fill="#1d2421"/>
+<polyline points="940,254 1000,254" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="258" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO10</text>
+<text x="1008" y="258" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">SDI</text>
+<circle cx="940" cy="254" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="254" r="2.5" fill="#1d2421"/>
+<polyline points="940,282 1000,282" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="286" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO11</text>
+<text x="1008" y="286" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">SDO</text>
+<circle cx="940" cy="282" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="282" r="2.5" fill="#1d2421"/>
+<polyline points="940,310 1000,310" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="314" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO12</text>
+<text x="1008" y="314" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">SCK</text>
+<circle cx="940" cy="310" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="310" r="2.5" fill="#1d2421"/>
+<polyline points="940,338 1000,338" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="342" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO7</text>
+<text x="1008" y="342" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">DRDY</text>
+<circle cx="940" cy="338" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="338" r="2.5" fill="#1d2421"/>
+<polyline points="940,366 1000,366" fill="none" stroke="#7e57c2" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="932" y="370" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">GPIO8</text>
+<text x="1008" y="370" font-size="12" text-anchor="start" fill="#1d2421" font-weight="600">FLT</text>
+<circle cx="940" cy="366" r="2.5" fill="#1d2421"/>
+<circle cx="1000" cy="366" r="2.5" fill="#1d2421"/>
+<rect x="843" y="640" width="44" height="12" rx="4" fill="#1d2421"/>
+<text x="865" y="632" font-size="12" text-anchor="middle" fill="#1d2421" font-weight="600">USB-C</text>
+<polyline points="865,652 865,676" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="872" y="667" font-size="12" text-anchor="start" fill="#5b6560">5 V</text>
+<rect x="784" y="676" width="162" height="46" rx="6" fill="#ffffff" stroke="#1d2421" stroke-width="1.5"/>
+<text x="865" y="695" font-size="12" text-anchor="middle" fill="#1d2421" font-weight="700">Isolated 5 V USB adapter</text>
+<text x="865" y="712" font-size="12" text-anchor="middle" fill="#5b6560">dedicated, ≥ 1 A</text>
+<text x="1047.5" y="140" font-size="13" text-anchor="middle" fill="#1d2421" font-weight="700">MAX31856 module</text>
+<text x="1087" y="174" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">3Vo</text>
+<polyline points="1095,170 1111,170" fill="none" stroke="#1d2421" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1107,165 l10,10 M1117,165 l-10,10" stroke="#c62828" stroke-width="2"/>
+<text x="1125" y="174" font-size="12" text-anchor="start" fill="#c62828" font-weight="700">NC</text>
+<text x="1087" y="258" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">T+</text>
+<text x="1087" y="300" font-size="12" text-anchor="end" fill="#1d2421" font-weight="600">T−</text>
+<polyline points="1095,254 1158,254 1158,340" fill="none" stroke="#b8860b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1095,296 1142,296 1142,340" fill="none" stroke="#b8860b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="1095" cy="254" r="2.5" fill="#1d2421"/>
+<circle cx="1095" cy="296" r="2.5" fill="#1d2421"/>
+<rect x="1120" y="560" width="60" height="44" rx="10" fill="#efe2cf" stroke="#b08b5a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<rect x="1134" y="340" width="32" height="18" rx="3" fill="#4a524e"/>
+<path d="M1145,358 V586 a5,5 0 0 0 10,0 V358 Z" fill="#c9cfcc" stroke="#4a524e" stroke-width="1.5"/>
+<rect x="1122" y="446" width="56" height="8" fill="#8a948f"/>
+<rect x="1145" y="446" width="10" height="8" fill="#c9cfcc" stroke="#4a524e" stroke-width="1"/>
+<text x="1116" y="454" font-size="12" text-anchor="end" fill="#5b6560">chamber lid</text>
+<text x="1114" y="586" font-size="12" text-anchor="end" fill="#5b6560">bean bed</text>
+<text x="990" y="408" font-size="12" text-anchor="start" fill="#1d2421">VIN from ESP 3V3;</text>
+<text x="990" y="424" font-size="12" text-anchor="start" fill="#1d2421">3Vo not connected.</text>
+<text x="990" y="500" font-size="12" text-anchor="start" fill="#1d2421" font-weight="700">K-type probe</text>
+<text x="990" y="516" font-size="12" text-anchor="start" fill="#1d2421">through the chamber</text>
+<text x="990" y="532" font-size="12" text-anchor="start" fill="#1d2421">lid at bean-bed height</text>
+<text x="990" y="640" font-size="12" text-anchor="start" fill="#5b6560">Use K-type leads only;</text>
+<text x="990" y="655" font-size="12" text-anchor="start" fill="#5b6560">never extend with copper.</text>
+<rect x="28" y="656" width="320" height="64" rx="8" fill="#fff5f4" stroke="#c62828" stroke-width="1.5"/>
+<path d="M42,668 l14,14 M56,668 l-14,14" stroke="#c62828" stroke-width="2.5" stroke-linecap="round"/>
+<text x="66" y="680" font-size="13" text-anchor="start" fill="#c62828" font-weight="700">Do not connect</text>
+<text x="42" y="698" font-size="12" text-anchor="start" fill="#1d2421">factory 5 V (incl. U3B pin 1) or 12 V rail to the ESP.</text>
+<text x="42" y="713" font-size="12" text-anchor="start" fill="#1d2421">The isolated adapter is the ESP's only supply.</text>
+<polyline points="386,664 416,664" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="424" y="668" font-size="12" text-anchor="start" fill="#1d2421">wire you add</text>
+<polyline points="526,664 556,664" fill="none" stroke="#1d2421" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<text x="564" y="668" font-size="12" text-anchor="start" fill="#1d2421">existing factory trace</text>
+<circle cx="716" cy="664" r="3.5" fill="#1d2421"/>
+<text x="724" y="668" font-size="12" text-anchor="start" fill="#1d2421">junction</text>
+<text x="386" y="686" font-size="12" text-anchor="start" fill="#1d2421">PC817 DIP-4: 1 anode, 2 cathode, 3 emitter, 4 collector.</text>
+<text x="386" y="704" font-size="12" text-anchor="start" fill="#1d2421">Dividers 20 kΩ / 33 kΩ scale 5 V to ≈ 3.1 V.</text>
+<text x="386" y="722" font-size="12" text-anchor="start" fill="#5b6560">Pins drawn schematically, not in board order.</text>
+<rect x="16" y="746" width="1168" height="96" rx="12" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+<path d="M48,768 l22,38 h-44 z" fill="#c62828"/>
+<text x="48" y="801" font-size="22" text-anchor="middle" fill="#ffffff" font-weight="700">!</text>
+<text x="90" y="778" font-size="15" text-anchor="start" fill="#c62828" font-weight="700">Caution: factory logic ground is potentially mains-referenced.</text>
+<text x="90" y="801" font-size="14" text-anchor="start" fill="#1d2421" font-weight="600">Never connect a computer or grounded instrument while the roaster is plugged in.</text>
+<text x="90" y="823" font-size="13" text-anchor="start" fill="#1d2421">Solder, check continuity, and flash over USB only with the roaster unplugged and the isolated adapter disconnected. Later updates go over Wi-Fi.</text>
+</svg>

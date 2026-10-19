@@ -1,0 +1,67 @@
+name: Release
+
+# Push a tag named v<kFirmwareVersion>, for example v2026-07-26.128, to publish that version.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    name: Build and publish
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # only this job creates the release
+    env:
+      ESP32_INDEX: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+      FQBN: esp32:esp32:waveshare_esp32_s3_zero:PartitionScheme=custom,PSRAM=enabled,EraseFlash=none
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tag matches the firmware version, bundle, and changelog
+        run: python .github/scripts/release.py check --tag "$GITHUB_REF_NAME"
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Cache Arduino cores
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.arduino15/packages
+            ~/.arduino15/staging
+          key: arduino-esp32-3.3.10
+      - name: Install ESP32 core 3.3.10
+        run: |
+          arduino-cli core update-index --additional-urls "$ESP32_INDEX"
+          arduino-cli core install esp32:esp32@3.3.10 --additional-urls "$ESP32_INDEX"
+      - name: Compile
+        run: |
+          arduino-cli compile --fqbn "$FQBN" \
+            --build-property compiler.optimization_flags=-Os \
+            --build-path build firmware/crackle/crackle
+      - name: Validate the image
+        run: |
+          python -m pip install --quiet "esptool>=5,<6"
+          esptool --chip esp32s3 image-info build/crackle.ino.bin | tee image-info.txt
+          grep -q 'Checksum:.*(valid)' image-info.txt
+          grep -q 'Validation hash:.*(valid)' image-info.txt
+      - name: Package
+        run: python .github/scripts/release.py package --build build --out dist
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Crackle ${{ github.ref_name }}
+          body_path: dist/release-notes.md
+          files: |
+            dist/crackle-*-ota.bin
+            dist/crackle-*-serial.zip
+            dist/crackle-*-elf.zip
+            dist/SHA256SUMS.txt
+          fail_on_unmatched_files: true

@@ -1,0 +1,40 @@
+{
+  "firmware_version": "2026-07-24.4",
+  "capture_role": "power_stage_passive_probe",
+  "input_only": true,
+  "ota_running_partition": "app0",
+  "ota_next_partition": "app1",
+  "ota_slot_bytes": 1310720,
+  "ap_active": false,
+  "station_configured": true,
+  "station_connected": true,
+  "station_ip": "192.168.x.x",
+  "station_rssi_dbm": -55,
+  "hostname": "sr800-sniffer.local",
+  "chip_temp_c": 42.6,
+  "chip_temp_f": 108.7,
+  "uptime_s": 106,
+  "boot_count": 12,
+  "reset_reason": "power_on",
+  "free_heap_bytes": 174560,
+  "min_free_heap_bytes": 121708,
+  "signal_interrupts_attached": true,
+  "capture_armed": false,
+  "capture_complete": true,
+  "capture_stop_reason": "manual",
+  "event_limit": 4096,
+  "edge_events": 930,
+  "levels_mask": 4,
+  "physical_channel_mapping": {
+    "channel_0_gpio_3": "U3B pin 11, heater command",
+    "channel_1_gpio_4": "U3B pin 12, fan command",
+    "channel_2_gpio_5": "U3B pin 10, temporary candidate",
+    "channel_3_gpio_6": "U3B pin 17, zero-cross reference"
+  },
+  "channels": [
+    {"channel": 0, "gpio": 3, "level": 0, "seen_high": false, "seen_low": true, "rises": 0, "falls": 0},
+    {"channel": 1, "gpio": 4, "level": 0, "seen_high": false, "seen_low": true, "rises": 0, "falls": 0},
+    {"channel": 2, "gpio": 5, "level": 1, "seen_high": true, "seen_low": true, "rises": 5397, "falls": 5397, "last_high_us": 6130, "min_high_us": 2037, "max_high_us": 6156, "last_low_us": 1931, "min_low_us": 1908, "max_low_us": 1980},
+    {"channel": 3, "gpio": 6, "level": 0, "seen_high": true, "seen_low": true, "rises": 2613, "falls": 2613, "last_high_us": 8740, "min_high_us": 8727, "max_high_us": 8768, "last_low_us": 7923, "min_low_us": 693, "max_low_us": 7936}
+  ]
+}

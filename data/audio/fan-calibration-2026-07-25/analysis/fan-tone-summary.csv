@@ -1,0 +1,9 @@
+controller,display_or_command_level,dominant_fan_tone_hz
+manual,1.0,889.16
+manual,5.0,2488.77
+manual,9.0,3062.99
+esp,0.1,895.02
+esp,1.0,1483.89
+esp,5.0,2676.27
+esp,8.9,3052.73
+esp,10.0,3172.85

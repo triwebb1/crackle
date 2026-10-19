@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Web app
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: Lint and formatting (Biome)
+        run: npm run lint
+      - name: Type check and production build
+        run: npm run build
+      - name: Embedded web bundle matches this source
+        run: python3 ../.github/scripts/release.py check-bundle
+      - name: Unit, render, and mock-controller tests
+        run: npm test
+
+  firmware-host:
+    name: Firmware host tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Versions, embedded bundle, and changelog agree
+        run: python .github/scripts/release.py check
+      - name: Source contract tests
+        working-directory: firmware/crackle/tests
+        run: |
+          set -e
+          for test in *_contract_test.py; do
+            echo "::group::$test"
+            python "$test"
+            echo "::endgroup::"
+          done
+      - name: Native C++ suites
+        working-directory: firmware/crackle/tests
+        run: bash run-native-tests.sh
+      - name: Display decoder replay
+        run: |
+          g++ -std=c++17 -Wall -I firmware/sniffer/sr800_sniffer \
+            firmware/sniffer/tests/decoder_replay_test.cpp -o decoder_replay_test
+          ./decoder_replay_test data/captures
+
+  firmware-image:
+    name: ESP32-S3 firmware image
+    runs-on: ubuntu-latest
+    env:
+      ESP32_INDEX: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+      FQBN: esp32:esp32:waveshare_esp32_s3_zero:PartitionScheme=custom,PSRAM=enabled,EraseFlash=none
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Cache Arduino cores
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.arduino15/packages
+            ~/.arduino15/staging
+          key: arduino-esp32-3.3.10
+      - name: Install ESP32 core 3.3.10
+        run: |
+          arduino-cli core update-index --additional-urls "$ESP32_INDEX"
+          arduino-cli core install esp32:esp32@3.3.10 --additional-urls "$ESP32_INDEX"
+      - name: Compile
+        run: |
+          arduino-cli compile --fqbn "$FQBN" \
+            --build-property compiler.optimization_flags=-Os \
+            --build-path build firmware/crackle/crackle
+      - name: Check application size against the 0x180000 OTA slot
+        run: |
+          size=$(stat -c %s build/crackle.ino.bin)
+          echo "Application image: $size bytes (slot 1572864)"
+          test "$size" -lt 1572864
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crackle-firmware
+          path: build/crackle.ino.bin
+          if-no-files-found: error

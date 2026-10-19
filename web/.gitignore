@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.vite-dev*.log
+# The dev-only mock controller's persisted state. Delete it to get a freshly seeded controller.
+dev/.mock-controller-state.json
+dev/.mock-controller-state.json.tmp

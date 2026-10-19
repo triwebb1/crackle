@@ -1,0 +1,31 @@
+* text=auto
+
+*.ino text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.jsonc text eol=lf
+*.md text eol=lf
+*.csv text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+*.mjs text eol=lf
+*.svg text eol=lf
+*.ps1 text eol=crlf
+
+# Generated or evidence files: excluded from the language bar and collapsed in diffs.
+firmware/crackle/crackle/crackle_bundle.h linguist-generated=true
+firmware/crackle/tests/vectors/** linguist-generated=true
+data/** linguist-documentation
+
+*.bin binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.m4a binary
+*.crk binary
