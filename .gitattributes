@@ -15,6 +15,7 @@
 *.yml text eol=lf
 *.mjs text eol=lf
 *.svg text eol=lf
+*.html text eol=lf
 *.ps1 text eol=crlf
 
 # Generated or evidence files: excluded from the language bar and collapsed in diffs.
