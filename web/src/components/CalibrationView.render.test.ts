@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'preact-render-to-string'
 import { describe, expect, it } from 'vitest'
 import type { HttpControllerClient } from '../controller/client'
 import { defaultCalibration } from '../data/calibration'
+import { formatLocalDateTime } from '../domain/dateTime'
 import type { CalibrationRun, ControllerStatus } from '../domain/types'
 import { CalibrationView } from './CalibrationView'
 
@@ -222,7 +223,9 @@ describe('calibration workflow contract', () => {
     expect(SOURCE).toContainCode(
       "if (catalogMutationBlockedReason) { setMessage(''); setError(catalogMutationBlockedReason); return }",
     )
-    expect(markup).toContainCode('aria-label="Include Empty-chamber baseline - 2026-07-26 06:00 in preview"')
+    expect(markup).toContainCode(
+      `aria-label="Include Empty-chamber baseline - ${formatLocalDateTime(settlingRun.capturedAt)} in preview"`,
+    )
     expect(markup).toContainCode('This remains available while device storage is busy.')
   })
 
