@@ -1,6 +1,6 @@
 # Product specification
 
-Status: normative for the current source tree (firmware `2026-07-26.128`, Crackle web app `0.10.70`).
+Status: normative for the current source tree (firmware `2026-07-26.129`, Crackle web app `0.10.71`).
 
 This specification defines the product the repository builds. The documents linked from each section
 are normative in their own scopes; see [Documentation authority](#documentation-authority).

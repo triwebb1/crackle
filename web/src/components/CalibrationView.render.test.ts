@@ -251,11 +251,14 @@ describe('calibration workflow contract', () => {
     )
   })
 
-  it('freezes baseline-measured airflow terms inside both fit call sites', () => {
+  it('fits against the baseline pins inside both fit call sites', () => {
     // Fitting all four coefficients freely and swapping airflow in afterwards produces a combined
-    // set whose replay error was never measured; the fit must receive the baseline pins up front.
-    expect(SOURCE).toContainCode('{ frozen: baselinePinnedAirflow(previewPassPatch) }')
-    expect(SOURCE).toContainCode('{ frozen: baselinePinnedAirflow(passPatch) }')
+    // set whose replay error was never measured; the fit must receive the baseline pins up front,
+    // and preview and save must choose them by the same rule.
+    expect(SOURCE).toContainCode('appliedCalibration, previewPassPatch)')
+    expect(SOURCE).toContainCode('appliedCalibration, passPatch)')
+    expect(SOURCE.match(/fitAgainstBaseline\(/g)).toHaveLength(2)
+    expect(SOURCE).not.toContain('fitCoefficientsFromLog(')
   })
 
   it('gates working bean-load maps on a fit that Save and apply would accept', () => {

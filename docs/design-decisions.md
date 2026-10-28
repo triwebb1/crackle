@@ -180,9 +180,10 @@ policy with special cases.
 Calibration fits once returned plausible-looking coefficients from an almost flat error valley: a
 heat-soaked ambient reading, the bean turnaround transient, and a single-node model made fan cooling
 unidentifiable. The fitter now takes ambient from the coolest late cold-junction reading, simulates
-but does not score the opening three minutes of a loaded roast, lets baselines pin airflow terms,
-and compares deterministic multi-start fits. When the starts disagree, Save and Apply are refused with guidance about what evidence to
-add. Model feasibility is a warning, qualified by the applied fit's replay error and by the
+but does not score the opening three minutes of a loaded roast, lets baselines pin heat-off airflow
+(and heating-mode airflow only when the loaded roasts cannot resolve it), and compares deterministic
+multi-start fits. When the starts disagree, Save and Apply are refused with guidance about what
+evidence to add. Model feasibility is a warning, qualified by the applied fit's replay error and by the
 temperatures its evidence actually reached, never a Start veto; the device's runtime envelope is the
 authority.
 

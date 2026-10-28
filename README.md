@@ -215,7 +215,7 @@ genuine model error. See [the web app README](web/README.md).
 
 Crackle is a personal project in regular use, controlling the roasts on one SR800 at home. It is
 designed for that scale: one roaster on one trusted home network, with no authentication (see
-[security](SECURITY.md)). Current source: firmware `2026-07-26.128`, web app `0.10.70`.
+[security](SECURITY.md)). Current source: firmware `2026-07-26.129`, web app `0.10.71`.
 
 **How it was built.** Spec-driven development. The [product specification](docs/product-spec.md)
 defines the behavior, and the [safety policy](firmware/safety-policy.md) defines the invariants no

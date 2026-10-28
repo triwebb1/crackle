@@ -5,6 +5,19 @@ every build and is never reused, so published releases skip the numbers of unrel
 `web/package.json`. Each firmware release embeds exactly one web app version, and each release is the
 tag `v<firmware version>`.
 
+## 2026-07-26.129 / web 0.10.71
+
+**Web app**
+
+- Calibration fits heating-mode airflow (Fan cooling while heating) from the loaded roasts whenever
+  they vary Fan at a constant Heat and the fit is stable, instead of always taking it from the
+  empty-chamber baseline. An empty chamber reads that term several times weaker than a bean bed,
+  so the Journey law, which inverts it to choose Fan, moved Fan far harder than the roaster needed:
+  near the start of a slower final zone, a small correction swung Fan across its whole band and
+  the bean temperature dipped. The baseline still pins heat-off cooling, and still pins
+  heating-mode airflow for roasts that cannot resolve it. Refit and apply the calibration to use
+  the corrected term; the Journey control law is unchanged.
+
 ## 2026-07-26.128 / web 0.10.70
 
 First public release.

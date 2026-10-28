@@ -329,8 +329,8 @@ only an explicit Save and an idle, acknowledged Apply change the coefficients th
 
 | Evidence | What it is | What it constrains |
 | --- | --- | --- |
-| Empty-chamber baseline | A device-run Fan × Heat staircase with no beans; default grid Fan 1, 4, 7, 10 × Heat 1, 5, 10, 300 s step cap, 20 s minimum dwell, 20 s settle window, 0.2 °C settle band, then forced-cooling and passive-decay tails | Airflow terms, coarse equilibrium and transition maps |
-| Loaded roast | Any recorded roast (Manual Roast is the usual source) with its batch mass, 1 Hz log | Heater gain and bean-side loss, the regime the model is asked to predict |
+| Empty-chamber baseline | A device-run Fan × Heat staircase with no beans; default grid Fan 1, 4, 7, 10 × Heat 1, 5, 10, 300 s step cap, 20 s minimum dwell, 20 s settle window, 0.2 °C settle band, then forced-cooling and passive-decay tails | Heat-off airflow `C`, a fallback heating-mode airflow `F`, coarse equilibrium and transition maps |
+| Loaded roast | Any recorded roast (Manual Roast is the usual source) with its batch mass, 1 Hz log | Heater gain, bean-side loss, and heating-mode airflow `F` when the roast moves Fan at a constant Heat: the regime the model is asked to predict |
 
 An empty pass measures the chamber, a different regime: a chamber-scale set driven through the bean
 model settles far below roast temperatures. Coefficient sets carry no regime tag, so pre-roast model
@@ -378,10 +378,17 @@ Three mechanisms keep a small RMS from passing for a good fit:
 - **Excitation report.** A log that never changes Heat cannot separate `G` from loss; one that never
   moves Fan while heating says nothing about `F`; Fan and Heat that only move together cannot be told
   apart; no fan-on, heat-off tail leaves `C` unconstrained. These warnings travel with the fit.
-- **Baseline pinning.** A selected empty-chamber baseline's `F` and `C` are frozen during the
-  search (clamped to the accepted range, at apply precision) and the loaded logs fit `G` and loss
-  against them. Swapping them in after a free fit is not equivalent: the free `G` compensates for its
-  own airflow estimate, and the combined set's error would never have been measured.
+- **Baseline pinning.** A selected empty-chamber baseline's `C` is frozen during the search
+  (clamped to the accepted range, at apply precision): heat-off airflow is the same physics with or
+  without beans. Its `F` is not: an empty chamber measures air cooling bare metal, while in a roast
+  airflow sets how fast heat crosses a bean bed. On one SR800 the chamber put `F` at about 3 °C/min;
+  roasts that varied Fan at a constant Heat put it at 13–15, and the Journey law, which inverts `F`
+  to choose Fan, moved Fan about five times harder than the roaster needed. So the loaded logs fit
+  `F` themselves whenever they resolve it (Fan swept at a constant Heat, and the multi-start probe
+  stable and off its bounds); otherwise the baseline's `F` is frozen too. Either way the free terms
+  are fitted against the frozen ones. Swapping pins in after a free fit is not equivalent: the free
+  `G` compensates for its own airflow estimate, and the combined set's error would never have been
+  measured.
 - **Multi-start.** The search also runs from four seeds spread along the most correlation-prone free
   coordinate: `F` at 0.5, 5, 35, 100, or `G` at 5, 30, 120, 400 when `F` is pinned. Solutions within
   `max(1 °C, 40 %)` of the best RMS are near-best. A coefficient whose near-best range is wider than
@@ -426,7 +433,7 @@ steady offset; far above it is a shape error no single coefficient fixes.
 | Gap | Consequence in the design |
 | --- | --- |
 | Stored chamber heat (hot walls, warm element) | Cold-start evidence rule; opening-turnaround exclusion |
-| Airflow authority in heating mode, and its delay | Heat-first allocation; asymmetric −12 bound |
+| Airflow authority in heating mode, and its delay | `F` fitted from loaded roasts; Heat-first allocation; asymmetric −12 bound |
 | Probe dynamics (replay and fitting use no lag) | Coefficients absorb the lag; preview re-applies 5 s |
 | Bean properties beyond mass | Volume and bulk density are recorded covariates only; no validated density law |
 

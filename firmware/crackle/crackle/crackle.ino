@@ -52,7 +52,7 @@ namespace {
 constexpr char kApName[] = "Crackle";
 constexpr char kApPassword[] = "freshroast";
 constexpr char kHostName[] = "crackle";
-constexpr char kFirmwareVersion[] = "2026-07-26.128";
+constexpr char kFirmwareVersion[] = "2026-07-26.129";
 constexpr char kRoasterModelId[] = "freshroast-sr800";
 constexpr char kRoasterDisplayName[] = "FreshRoast SR800";
 constexpr char kCaptureRole[] = "crackle_controller";

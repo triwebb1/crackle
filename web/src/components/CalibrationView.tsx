@@ -58,11 +58,11 @@ import {
 } from '../domain/calibrationProgram'
 import { calibrationProvenance, THERMAL_FIELDS } from '../domain/calibrationProvenance'
 import {
-  baselinePinnedAirflow,
   combineSegmentedCalibration,
   estimateAmbientC,
-  fitCoefficientsFromLog,
+  fitAgainstBaseline,
   fitSourceFromRun,
+  heatingAirflowResolved,
   isLoadedRun,
   logExcitation,
   unresolvedUnstableFields,
@@ -1656,10 +1656,10 @@ export function CalibrationView({
   const previewFit = useMemo(
     () =>
       selectedForFit.length > 0
-        ? fitCoefficientsFromLog(
+        ? fitAgainstBaseline(
             selectedForFit.map((candidate) => fitSourceFromRun(candidate.run, candidate.input.label)),
             appliedCalibration,
-            { frozen: baselinePinnedAirflow(previewPassPatch) },
+            previewPassPatch,
           )
         : undefined,
     [appliedCalibration, previewPassPatch, selectedForFit],
@@ -1841,10 +1841,10 @@ export function CalibrationView({
           : {}
       const result =
         roastInputs.length > 0
-          ? fitCoefficientsFromLog(
+          ? fitAgainstBaseline(
               roastInputs.map((candidate) => fitSourceFromRun(candidate.run, candidate.input.label)),
               appliedCalibration,
-              { frozen: baselinePinnedAirflow(passPatch) },
+              passPatch,
             )
           : undefined
       if (roastInputs.length > 0 && !result) {
@@ -3524,8 +3524,9 @@ export function CalibrationView({
                 )}
                 {includedBaselineRuns.length > 0 && previewFit && (
                   <small>
-                    The selected baseline pins any airflow coefficients it directly measured; the loaded roast fits the
-                    remaining heater and bean-loss terms.
+                    {heatingAirflowResolved(previewFit)
+                      ? 'The selected baseline pins the heat-off cooling it measured. The loaded roasts vary Fan while heating, so they fit heating-mode airflow themselves, with the heater and bean-loss terms.'
+                      : 'The selected baseline pins any airflow coefficients it directly measured; the loaded roast fits the remaining heater and bean-loss terms.'}
                   </small>
                 )}
                 {previewUnstable.length > 0 && (

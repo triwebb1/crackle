@@ -12,7 +12,7 @@ whether or not any browser stays connected.
 
 | | |
 | --- | --- |
-| Version | `0.10.70` (`web/package.json` is the version authority; backup manifests and `crackle_bundle.h` derive from it) |
+| Version | `0.10.71` (`web/package.json` is the version authority; backup manifests and `crackle_bundle.h` derive from it) |
 | Framework | Preact 10, TypeScript 5.9, Vite 6, Vitest 3 |
 | Runtime dependencies | `preact`, `preact-render-to-string`, `lucide-preact` (icons), `fflate` (zlib for controller documents) |
 | Delivery | Three files (`index.html`, one JS, one CSS), Terser three-pass minified, gzip-embedded in both OTA slots |

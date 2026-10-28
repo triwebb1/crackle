@@ -149,6 +149,8 @@ export interface CoefficientFit {
   unstable: ThermalCoefficientField[]
   /** Near-best multi-start range for each fitted field. */
   seedRange: Record<ThermalCoefficientField, { min: number; max: number }>
+  /** Fields held at a supplied value for the whole search rather than fitted. */
+  frozen: ThermalCoefficientField[]
 }
 
 /**
@@ -396,6 +398,7 @@ export const fitCoefficientsFromLog = (
     excitation: logExcitation(usable.flatMap((source) => source.samples)),
     unstable,
     seedRange,
+    frozen: FITTED_FIELDS.filter((field) => frozen[field] !== undefined),
   }
 }
 
@@ -404,7 +407,7 @@ export const fitCoefficientsFromLog = (
  * `fitCoefficientsFromLog` as its `frozen` option. Empty-chamber evidence isolates airflow; the
  * loaded roast then fits heater gain and bean-side loss AGAINST those pinned values instead of
  * letting all four slide along one flat error valley. A field absent from the baseline remains the
- * loaded-roast fit's responsibility.
+ * loaded-roast fit's responsibility. `fitAgainstBaseline` decides which of these pins to use.
  */
 export const baselinePinnedAirflow = (
   baseline: Partial<Record<ThermalCoefficientField, number>>,
@@ -423,17 +426,61 @@ export const baselinePinnedAirflow = (
 }
 
 /**
- * Assembles the saved patch from both evidence kinds. When the fit was produced with the
- * baseline's airflow terms frozen (the production path), the airflow overwrite here is a no-op
- * and the fit's reported RMS describes exactly the set being saved; the overwrite remains for
- * fits produced without pinning, where baseline evidence still outranks a free-fit airflow guess.
+ * Whether the loaded roasts themselves determined heating-mode airflow: the term was searched
+ * rather than frozen, the logs vary Fan at a constant Heat, and the multi-start probe found one
+ * answer rather than a valley.
+ */
+export const heatingAirflowResolved = (fit: CoefficientFit) =>
+  !fit.frozen.includes('fanCoolingCPerMinAt10') &&
+  fit.excitation.fanSweptAtConstantHeat &&
+  !fit.unstable.includes('fanCoolingCPerMinAt10') &&
+  !fit.pinned.includes('fanCoolingCPerMinAt10')
+
+/**
+ * The production fit: loaded roasts against an empty-chamber baseline.
+ *
+ * Heat-off airflow (`coolingFanCPerMinAt10`) is the same physics with or without beans, so a
+ * baseline value is always pinned. Airflow WHILE HEATING is not: an empty chamber measures air
+ * cooling bare metal, while in a roast the same airflow sets how fast heat moves through a bean
+ * bed. Measured on one SR800, the empty chamber put Fan 10 at 2.9 °C/min of heating-mode cooling;
+ * roasts that varied Fan at constant Heat put it at 13-15, and short-horizon prediction of their
+ * hot zones at about 21. The Journey law inverts this term to choose Fan, so the chamber value made
+ * every Fan move about five times stronger than modelled.
+ *
+ * So the loaded roasts fit heating-mode airflow whenever they resolve it (see
+ * `heatingAirflowResolved`); the baseline's value is the fallback for roasts that never moved
+ * Fan while heating or that leave it in a valley, which is the only case the baseline pin was
+ * needed for. Without identifiability probing nothing can be called resolved, so both pins apply.
+ */
+export const fitAgainstBaseline = (
+  sources: FitSource[],
+  base: CalibrationSettings,
+  baseline: Partial<Record<ThermalCoefficientField, number>>,
+  options: FitOptions = {},
+): CoefficientFit | undefined => {
+  const pins = baselinePinnedAirflow(baseline)
+  const { fanCoolingCPerMinAt10: chamberHeatingAirflow, ...heatOffPins } = pins
+  if (chamberHeatingAirflow !== undefined && options.checkIdentifiability !== false) {
+    const loadedAirflow = fitCoefficientsFromLog(sources, base, { ...options, frozen: heatOffPins })
+    if (!loadedAirflow || heatingAirflowResolved(loadedAirflow)) return loadedAirflow
+  }
+  return fitCoefficientsFromLog(sources, base, { ...options, frozen: pins })
+}
+
+/**
+ * Assembles the saved patch from both evidence kinds. When the fit was produced by
+ * `fitAgainstBaseline` (the production path), the overwrite here is a no-op and the fit's
+ * reported RMS describes exactly the set being saved. For a fit produced without pinning, baseline
+ * airflow still outranks a free-fit guess, except heating-mode airflow the loaded roasts resolved.
  */
 export const combineSegmentedCalibration = (
   fit: CoefficientFit | undefined,
   baseline: Partial<Record<ThermalCoefficientField, number>>,
 ): Partial<Record<ThermalCoefficientField, number>> => {
   if (!fit) return { ...baseline }
-  return { ...fit.coefficients, ...baselinePinnedAirflow(baseline) }
+  const pins = baselinePinnedAirflow(baseline)
+  if (heatingAirflowResolved(fit)) delete pins.fanCoolingCPerMinAt10
+  return { ...fit.coefficients, ...pins }
 }
 
 export const unresolvedUnstableFields = (

@@ -6,8 +6,10 @@ import {
   COEFFICIENT_BOUNDS,
   combineSegmentedCalibration,
   estimateAmbientC,
+  fitAgainstBaseline,
   fitCoefficientsFromLog,
   fitSourceFromRun,
+  heatingAirflowResolved,
   isLoadedRun,
   logExcitation,
   pooledRms,
@@ -267,13 +269,23 @@ describe('segmented baseline and loaded-roast evidence', () => {
   const source = { id: 'x', label: 'x', samples: syntheticLog(TRUTH, 225, EXCITED), massG: 225, ambientC: AMBIENT }
   const fit = fitCoefficientsFromLog([source], defaultCalibration)!
 
-  it('pins directly measured airflow terms but leaves heater gain and bean loss to the roast fit', () => {
+  it('pins heat-off airflow but keeps heating-mode airflow the roast resolved', () => {
     const baseline = { fanCoolingCPerMinAt10: 12, coolingFanCPerMinAt10: 44, thermalLossPerMinPerC: 0.9 }
+    expect(heatingAirflowResolved(fit)).toBe(true)
     const combined = combineSegmentedCalibration(fit, baseline)
-    expect(combined.fanCoolingCPerMinAt10).toBe(12)
+    expect(combined.fanCoolingCPerMinAt10).toBe(fit.coefficients.fanCoolingCPerMinAt10)
     expect(combined.coolingFanCPerMinAt10).toBe(44)
     expect(combined.heaterGainCPerMinAt10).toBe(fit.coefficients.heaterGainCPerMinAt10)
     expect(combined.thermalLossPerMinPerC).toBe(fit.coefficients.thermalLossPerMinPerC)
+  })
+
+  it('pins baseline heating-mode airflow when the roast never separated Fan from Heat', () => {
+    const plain = fitCoefficientsFromLog(
+      [{ id: 'p', label: 'p', samples: syntheticLog(TRUTH, 225, PLAIN), massG: 225, ambientC: AMBIENT }],
+      defaultCalibration,
+    )!
+    expect(heatingAirflowResolved(plain)).toBe(false)
+    expect(combineSegmentedCalibration(plain, { fanCoolingCPerMinAt10: 12 }).fanCoolingCPerMinAt10).toBe(12)
   })
 
   it('freezes baseline airflow during the search so the free terms compensate against them', () => {
@@ -326,6 +338,53 @@ describe('segmented baseline and loaded-roast evidence', () => {
     })!
     expect(bounded.coefficients.fanCoolingCPerMinAt10).toBe(COEFFICIENT_BOUNDS.fanCoolingCPerMinAt10.min)
     expect(bounded.pinned).not.toContain('fanCoolingCPerMinAt10')
+  })
+
+  /**
+   * An empty chamber reads heating-mode airflow several times weaker than a bean bed does. Pinning
+   * that value made the Journey law move Fan as if each level were worth a fifth of its real effect.
+   */
+  describe('fitting against a baseline whose heating-mode airflow is a chamber value', () => {
+    const chamber = { fanCoolingCPerMinAt10: 3, coolingFanCPerMinAt10: TRUTH.coolingFanCPerMinAt10 }
+
+    it('fits heating-mode airflow from roasts that vary Fan at constant Heat', () => {
+      const result = fitAgainstBaseline([source], defaultCalibration, chamber)!
+      expect(result.frozen).toEqual(['coolingFanCPerMinAt10'])
+      expect(heatingAirflowResolved(result)).toBe(true)
+      const relative =
+        Math.abs(result.coefficients.fanCoolingCPerMinAt10 - TRUTH.fanCoolingCPerMinAt10) / TRUTH.fanCoolingCPerMinAt10
+      expect(relative).toBeLessThan(0.2)
+      expect(result.coefficients.coolingFanCPerMinAt10).toBe(TRUTH.coolingFanCPerMinAt10)
+      const pinned = fitCoefficientsFromLog([source], defaultCalibration, { frozen: baselinePinnedAirflow(chamber) })!
+      expect(result.rmsC).toBeLessThan(pinned.rmsC)
+      // The saved patch is the set that was scored.
+      expect(combineSegmentedCalibration(result, chamber)).toEqual(result.coefficients)
+    })
+
+    it('keeps the chamber value when the roasts cannot resolve heating-mode airflow', () => {
+      const plainSource = {
+        id: 'p',
+        label: 'p',
+        samples: syntheticLog(TRUTH, 225, PLAIN),
+        massG: 225,
+        ambientC: AMBIENT,
+      }
+      const result = fitAgainstBaseline([plainSource], defaultCalibration, chamber)!
+      expect(result.frozen).toEqual(['fanCoolingCPerMinAt10', 'coolingFanCPerMinAt10'])
+      expect(result.coefficients.fanCoolingCPerMinAt10).toBe(3)
+      expect(combineSegmentedCalibration(result, chamber)).toEqual(result.coefficients)
+    })
+
+    it('pins both airflow terms when identifiability is not probed', () => {
+      const result = fitAgainstBaseline([source], defaultCalibration, chamber, { checkIdentifiability: false })!
+      expect(result.frozen).toEqual(['fanCoolingCPerMinAt10', 'coolingFanCPerMinAt10'])
+      expect(result.coefficients.fanCoolingCPerMinAt10).toBe(3)
+    })
+
+    it('fits every airflow term the baseline did not measure', () => {
+      const result = fitAgainstBaseline([source], defaultCalibration, {})!
+      expect(result.frozen).toEqual([])
+    })
   })
 
   it('treats an unstable airflow term as resolved only when baseline evidence supplied it', () => {

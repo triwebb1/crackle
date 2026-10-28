@@ -5,8 +5,8 @@ ESP32-S3-Zero. It drives the fan and heater through the factory power stage, rea
 thermocouple, executes roasts and calibration programs on the device, keeps a compressed archive of
 thermal recordings, stores the browser app's library, and serves that app same-origin from flash.
 
-This is the firmware, API, and storage reference. Current versions: firmware `2026-07-26.128`
-(`kFirmwareVersion`), embedded web app `0.10.70`.
+This is the firmware, API, and storage reference. Current versions: firmware `2026-07-26.129`
+(`kFirmwareVersion`), embedded web app `0.10.71`.
 
 | Topic | Document |
 | --- | --- |
